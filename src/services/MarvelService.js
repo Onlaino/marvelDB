@@ -1,5 +1,5 @@
 class MarvelService {
-	#API_KEY = 'apikey=f275d254161c1354f6dd370a001e91cd';
+	#API_KEY = 'apikey=9159a4147f2e9f93ec632c7122e37b54';
 	#API_BASE = 'https://gateway.marvel.com:443/v1/public/';
 
 	getResource = async (url) => {
@@ -22,6 +22,7 @@ class MarvelService {
 
 	_transformCharacter = (char) => {
 		return {
+			id: char.id,
 			name: char.name,
 			description: char.description,
 			thumbnail: char.thumbnail.path + '.' + char.thumbnail.extension,

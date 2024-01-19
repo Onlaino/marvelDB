@@ -1,12 +1,12 @@
-import React from 'react';
+import React, {StrictMode} from 'react';
 import ReactDOM from 'react-dom/client';
-import { StrictMode} from "react";
 import App from './components/app/App';
-import MarvelService from "./services/MarvelService";
 import './style/style.scss';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-	<App/>
+	<StrictMode>
+		<App/>
+	</StrictMode>
 );
 
