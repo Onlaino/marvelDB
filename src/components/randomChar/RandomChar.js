@@ -5,7 +5,7 @@ import mjolnir from '../../resources/img/mjolnir.png';
 import MarvelService from "../../services/MarvelService";
 import Spinner from "../spinner/Spinner.js";
 import ErrorMessage from "../errorMessage/ErrorMessage";
-import errorMessage from "../errorMessage/ErrorMessage";
+// import errorMessage from "../errorMessage/ErrorMessage";
 
 class RandomChar extends Component {
 	state = {
