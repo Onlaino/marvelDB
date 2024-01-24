@@ -1,65 +1,47 @@
-import {Component} from "react";
+import {useEffect, useState} from "react";
+
 
 import './randomChar.scss';
 import mjolnir from '../../resources/img/mjolnir.png';
-import MarvelService from "../../services/MarvelService";
+import useMarvelService from "../../services/MarvelService";
 import Spinner from "../spinner/Spinner.js";
 import ErrorMessage from "../errorMessage/ErrorMessage";
 // import errorMessage from "../errorMessage/ErrorMessage";
 
-class RandomChar extends Component {
-	state = {
-		char : {},
-		loading : true,
-		error : false,
-	}
-	marvelService = new MarvelService();
+const RandomChar = () => {
+	const [char, setChar] = useState({});
 
-	componentDidMount() {
-		this.updateChar();
-		// this.timerId = setInterval(this.updateChar, 3000);
-	}
+	const {loading, error, getCharacter, clearError} = useMarvelService();
 
-	componentWillUnmount() {
-		// clearInterval(this.timerId);
-	}
+	useEffect(() => {
+		updateChar();
+		const timerId = setInterval(updateChar, 180000);
 
-	onCharLoading = () => {
-		this.setState({
-			loading: true,
-		})
+		return () => {
+			clearInterval(timerId);
+		}
+		// eslint-disable-next-line
+	}, []);
+
+	const onCharLoaded = (char) => {
+		setChar(char);
 	}
 
-	onCharLoaded = (char) => {
-		this.setState({char, loading : false});
-	}
-
-	updateChar = () => {
+	const updateChar = () => {
+		clearError();
 		const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000);
-		this.onCharLoading();
-		this.marvelService
-			.getCharacter(id)
-			.then(this.onCharLoaded)
-			.catch(this.onError);
+		getCharacter(id)
+			.then(char => onCharLoaded(char));
 	}
 
-	onError = () => {
-		this.setState( {
-			loading : false,
-			error : true,
-		});
+	const onClickTryIt = () => {
+		updateChar();
 	}
 
-	onClickTryIt = () => {
-		this.updateChar();
-	}
 
-	render() {
-		const {char, loading, error} = this.state;
 		const errorMessage = error ?  <ErrorMessage/> : null;
 		const spinner = loading ? <Spinner/> : null;
 		const content = !(loading || error) ? <View char={char}/> : null;
-
 
 		return (
 			<div className="randomchar">
@@ -74,14 +56,14 @@ class RandomChar extends Component {
 					<p className="randomchar__title">
 						Or choose another one
 					</p>
-					<button onClick={this.onClickTryIt} className="button button__main">
+					<button onClick={onClickTryIt} className="button button__main">
 						<div  className="inner">try it</div>
 					</button>
+					{/*eslint-disable-next-line*/}
 					<img src={mjolnir} alt="mjolnir" className="randomchar__decoration"/>
 				</div>
 			</div>
 		)
-	}
 }
 
 
