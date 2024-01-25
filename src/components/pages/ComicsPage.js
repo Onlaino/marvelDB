@@ -3,10 +3,10 @@ import AppBanner from "../appBanner/AppBanner";
 
 const ComicsPage = () => {
 	return (
-		<>
+		<main>
 			<AppBanner/>
 			<ComicsList/>
-		</>
+		</main>
 	)
 }
 

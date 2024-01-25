@@ -7,7 +7,6 @@ import ErrorMessage from '../errorMessage/ErrorMessage';
 import Skeleton from '../skeleton/Skeleton';
 
 import './charInfo.scss';
-import {clear} from "@testing-library/user-event/dist/clear";
 
 const CharInfo = (props) => {
 	const [char, setChar] = useState(null);
